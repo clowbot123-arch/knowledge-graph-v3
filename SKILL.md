@@ -1,6 +1,6 @@
 # 🧠 Knowledge Graph V3.0 for OpenClaw
 
-**OpenClaw Skill** - Autonomous Parallel Learning System with Real Web Research
+**OpenClaw Skill** - External Brain for LLM Code Generation
 
 [![OpenClaw Skill](https://img.shields.io/badge/OpenClaw-Skill-blue)](https://clawhub.com)
 [![Version](https://img.shields.io/badge/Version-3.0.0-green)]()
@@ -10,13 +10,13 @@
 
 ## 📦 OpenClaw Skill
 
-This is an **official OpenClaw skill** that extends OpenClaw's autonomous capabilities with:
+This is an **official OpenClaw skill** that gives the LLM a persistent external brain for:
 
-- 🤖 **6 Parallel Agents** - Simultaneously learning across tasks
-- 🌐 **Real Web Research** - Uses OpenClaw browser for live searches  
-- 📊 **Performance Tracking** - Measures improvement from learning
-- 💾 **Template Storage** - Reuses code from previous iterations
-- 🔄 **Self-Reflection** - Autonomous improvement analysis
+- 💾 **Store Code Templates** - Remember useful code patterns
+- 🔍 **Query Templates** - Retrieve relevant code when needed
+- 🧠 **Learn from Experience** - Confidence scores and usage tracking
+- 📊 **Self-Reflection** - Record insights and improvements
+- 🔄 **Persistent Across Sessions** - Knowledge survives restarts
 
 ## Installation
 
@@ -31,63 +31,95 @@ git clone https://github.com/clowbot123-arch/knowledge-graph-v3.git
 cd knowledge-graph-v3
 ```
 
-## Usage
+## 🎯 For LLM: How to Use the Brain
+
+```python
+from llm_brain import LLMBrain
+
+brain = LLMBrain()
+
+# 1. Query a template
+templates = brain.query("flask_login")
+if templates:
+    code = templates[0]["content"]
+    brain.record_usage(templates[0]["id"])
+    print(code)
+
+# 2. Search for code
+results = brain.search("authentication patterns")
+
+# 3. Get best template
+best = brain.get_best("api_design")
+
+# 4. Store new knowledge
+brain.store(
+    task_type="vue_auth",
+    content=vue_code,
+    description="Vue authentication component",
+    tags=["vue", "auth"],
+    framework="Vue.js",
+    language="javascript"
+)
+
+# 5. Add reflection
+brain.add_reflection(
+    "Vue Composition API is cleaner than Options API",
+    context="vue_auth_component"
+)
+
+# 6. Get stats
+stats = brain.get_stats()
+```
+
+## 🚀 Running the Systems
 
 ### Standard Learning Experiment
 ```bash
 python3 run_v3.py
 ```
+6 parallel agents learning simultaneously with web research.
 
 ### Extreme Challenge (Stress Test)
 ```bash
 python3 extreme_challenge.py
 ```
+E-Commerce Microservices Platform with K8s, Terraform, CI/CD.
 
-## What It Does
+## 📊 Results
 
-### V3.0 Parallel Learning
-
-1. **Launches 6 autonomous agents** simultaneously:
-   - `agent_login` → Python Flask Login System
-   - `agent_restapi` → FastAPI REST API
-   - `agent_fullstack` → Vue.js + Flask Fullstack
-   - `agent_docker` → Dockerized Python App
-   - `agent_microservice` → Microservices Gateway
-   - `agent_db` → SQLite ORM Layer
-
-2. **Iteration 1**: Agents search the web via OpenClaw browser and learn
-
-3. **Iteration 2-3**: Agents reuse stored templates and execute much faster
-
-### Results
-
-| Metric | Before Learning | After Learning | Improvement |
+| System | Before Learning | After Learning | Improvement |
 |--------|----------------|----------------|-------------|
-| Task Duration | ~24s | ~0.07s | **97-99% faster** |
-| Templates Stored | 0 | 4-22 | Automatic |
-| Knowledge Reuse | None | All iterations | Yes |
+| V3.0 Parallel | ~24s/task | ~0.07s/task | **97-99% faster** |
+| Extreme Challenge | 60s | 0.09s | **99.9% faster** |
+| Knowledge Stored | 0 | 4-22 items | Automatic |
 
 ## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    OPENCLAW + KNOWLEDGE GRAPH V3.0              │
+│                    OPENCLAW + LLM BRAIN                        │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│   🤖 OpenClaw Agents (6 parallel)                              │
+│   🤖 LLM (You)                                                 │
 │   ┌─────────────────────────────────────────────────────────┐  │
-│   │  Each agent:                                             │  │
-│   │  1. Check knowledge graph for templates                 │  │
-│   │  2. If empty → Web search via OpenClaw browser          │  │
-│   │  3. Generate code from templates                        │  │
-│   │  4. Store learned knowledge                             │  │
+│   │  • Query templates before coding                       │  │
+│   │  • Store useful patterns after coding                  │  │
+│   │  • Add reflections on what worked                     │  │
+│   │  • Search for related knowledge                        │  │
 │   └─────────────────────────────────────────────────────────┘  │
 │                                                                 │
-│   🧠 Knowledge Graph (SQLite)                                   │
+│   🧠 LLMBrain (SQLite)                                         │
 │   ┌─────────────────────────────────────────────────────────┐  │
-│   │  Tables:                                                │  │
-│   │  • knowledge (templates, sources, confidence)            │  │
-│   │  • history (execution logs, durations)                   │  │
+│   │  Tables:                                               │  │
+│   │  • knowledge (templates, confidence, usage count)     │  │
+│   │  • reflections (self-learning insights)                │  │
+│   │  • sessions (tracking over time)                       │  │
+│   └─────────────────────────────────────────────────────────┘  │
+│                                                                 │
+│   🌐 OpenClaw Browser                                          │
+│   ┌─────────────────────────────────────────────────────────┐  │
+│   │  • Real web searches for learning                      │  │
+│   │  • Source citation & confidence scoring                │  │
 │   └─────────────────────────────────────────────────────────┘  │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
@@ -99,39 +131,54 @@ python3 extreme_challenge.py
 knowledge-graph-v3/
 ├── SKILL.md                    # This file
 ├── README.md                   # Quick reference
-├── run_v3.py                  # Main launcher (1.4KB)
-├── autonomous_learning_v3.py  # Core system (5KB)
-├── extreme_challenge.py       # Stress test (12KB)
-├── data/                       # Generated data
-│   ├── graph/knowledge.db     # SQLite database
-│   └── templates/             # Generated code
-└── results/                   # Experiment results
-    └── *.json
+├── llm_brain.py                # ⭐ NEW: LLM External Brain (16KB)
+├── run_v3.py                   # Parallel agents launcher
+├── autonomous_learning_v3.py    # Core learning system
+├── extreme_challenge.py         # Stress test
+├── data/
+│   ├── llm_brain.db            # SQLite knowledge base
+│   └── templates_llm/          # Stored templates
+└── results/                    # Experiment results
 ```
 
 ## Requirements
 
 - **OpenClaw** with browser capability
 - Python 3.8+
-- Internet connection (for web research)
 - SQLite3
+- Internet connection (for web research)
 
 ## Configuration
 
 No configuration required. Uses OpenClaw's built-in browser automatically.
 
+## API Reference
+
+### LLMBrain Methods
+
+| Method | Description |
+|--------|-------------|
+| `store(task_type, content, ...)` | Store a template |
+| `query(task_type)` | Get templates by type |
+| `search(query)` | Search across all knowledge |
+| `get_best(task_type)` | Get highest confidence template |
+| `get_related(task_type)` | Find related knowledge |
+| `record_usage(item_id)` | Track template usage |
+| `add_reflection(text, context)` | Add self-learning |
+| `get_reflections()` | Get recent insights |
+| `get_stats()` | Get knowledge base statistics |
+
 ## Troubleshooting
+
+### "Database locked"
+```bash
+rm -f data/llm_brain.db
+python3 llm_brain.py  # Recreate with demo
+```
 
 ### "Browser not found"
 ```bash
 openclaw browser start --browser-profile openclaw
-```
-
-### "Database locked"
-Delete the database and restart:
-```bash
-rm -rf data/graph/knowledge.db
-python3 run_v3.py
 ```
 
 ## License
